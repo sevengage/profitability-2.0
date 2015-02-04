@@ -1,10 +1,21 @@
 
 /* Login Controller
 -----------------------------------------------------------------*/
-PRP.app.controller("LoginController", ["$scope", function ($scope){
-	//emit when login happens
+PRP.app.controller("LoginController", ["$scope", "$window", "api", function ($scope, $window, api){
+	$scope.email = "";
+	$scope.password = "";
+
 	$scope.loginUser = function(){
-		$scope.$emit("login", true);
+		
+		api.login($scope.email, $scope.password).then(function(response){
+			if(Boolean(response.GroupName) && response.PasswordMatch){
+				//emit when login is a success
+				$scope.$emit("login", true);
+			}else{
+				$window.alert("Sorry about that.  Please try entering a good" + (typeof response.InfusionId !== "number" ? " email address" : "") + (response.PasswordMatch === null || !response.PasswordMatch ? (typeof response.InfusionId !== "number" ? " and password" : " password") : "") );
+			}
+		});
+
 	};
 	
 }]);

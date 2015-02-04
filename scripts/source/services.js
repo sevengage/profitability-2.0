@@ -34,6 +34,12 @@ PRP.app.service("api", ["Backend", "base", function (Backend, base){
 		promise = Backend.fetch(base.api.get_program_details + video_uuid + "/api/" + PRP.properties.key + "/mode/json");
 		return promise;
 	};
+
+	// Login check at infusionsoft.  Group id customizable.
+	this.login = function(email, pass){
+		promise = Backend.fetch(base.api.login + "email=" + email + "&group_id=" + PRP.properties.group_id + "&password=" + pass);
+		return promise;
+	};
 }]);
 
 
@@ -60,8 +66,6 @@ PRP.app.service("process", ["api", "utils", function (api, utils){
 				trash(rawCategoryArray[i]);
 			}
 		}
-
-		console.log(categories)
 
 		categoryLength = categories.length;
 
