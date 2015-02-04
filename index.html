@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mobile">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<meta http-equiv='cleartype' content='on'>
+<meta name='HandheldFriendly' content='True'>
+<meta name='apple-mobile-web-app-capable' content='yes'>
+<meta name='apple-mobile-web-app-status-bar-style' content='black'>
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="styles/global.css?1234">
+
+
+<!-- iPhone SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+<!-- iPhone (Retina) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+<!-- iPad (portrait) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
+<!-- iPad (landscape) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
+<!-- iPad (Retina, portrait) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-1536x2008.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+<!-- iPad (Retina, landscape) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-2048x1496.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+<link rel="apple-touch-icon" href="assets/touch-icon-iphone.png"> <!-- 60x60-->
+<link rel="apple-touch-icon" sizes="76x76" href="assets/touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="120x120" href="assets/iphone-4-icon-retnia.png">
+
+</head>
+<body ng-controller="PagesController" class="ui-mobile-viewport ng-scope ui-overlay-a">
+
+	<div data-role="panel" id="sidePanel" class="sidePanel" ng-class="{'active': revealMenu}" style="height: {{pageHeight}}px">
+		<div class="span-1 pad logo-cntr">
+			<img src="assets/PRP_final_14mar13.png" class="flex-img">
+		</div>
+		<ul class="unstyled align-left full-width-btn">
+			<li ng-repeat="item in categories"><a href="#/subcategory?page={{item.categoryid}}" ng-click="hideMenu({{item.categoryid}})">{{item.name}}</a></li>
+			<li><a href="" logout>Logout</a></li>
+		</ul>
+	</div>
+
+	<input type="checkbox" id="navTrigger" class="nav-trigger" ng-model="revealMenu">
+	<label for="navTrigger" class="xl" ng-show="isLoggedIn"><i class="icon-list"></i></label>
+
+
+	<div ui-view id="pageContainer" class="page-container"></div>
+
+
+<!-- <script src="scripts/include/profitability.min.js"></script> -->
+
+<script src="scripts/lib/jquery-1.10.2.js"></script>
+<script src="scripts/lib/angular-1.3.4.js"></script>
+<script src="scripts/lib/angular-ui-router.js"></script>
+<script src="scripts/lib/angular-touch.js"></script>
+<script src="scripts/lib/jwplayer.js"></script>
+<script src="scripts/lib/jwplayer.html5.js"></script>
+<script src="scripts/source/constants.js"></script>
+<script src="scripts/source/configs.js"></script>
+<script src="scripts/source/directives.js"></script>
+<script src="scripts/source/services.js"></script>
+<script src="scripts/source/controller.js"></script>
+
+</body>
+</html>

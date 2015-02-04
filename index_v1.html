@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mobile">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<meta http-equiv='cleartype' content='on'>
+<meta name='HandheldFriendly' content='True'>
+<meta name='apple-mobile-web-app-capable' content='yes'>
+<meta name='apple-mobile-web-app-status-bar-style' content='black'>
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="styles/global.css?1234">
+
+
+<!-- iPhone SPLASHSCREEN-->
+<link href="apple-touch-startup-image-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+<!-- iPhone (Retina) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+<!-- iPad (portrait) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
+<!-- iPad (landscape) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
+<!-- iPad (Retina, portrait) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-1536x2008.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+<!-- iPad (Retina, landscape) SPLASHSCREEN-->
+<link href="assets/apple-touch-startup-image-2048x1496.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+<link rel="apple-touch-icon" href="assets/touch-icon-iphone.png"> <!-- 60x60-->
+<link rel="apple-touch-icon" sizes="76x76" href="assets/touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="120x120" href="assets/iphone-4-icon-retnia.png">
+
+
+<script src="scripts/include/jquery.min.js"></script>
+
+</head>
+<body ng-controller="PagesController">
+
+
+	<div data-role="page" id="login" ng-controller="LoginController">	
+		<div role="main" class="ui-content jqm-content jqm-fullwidth">
+			<div class="row category-grouping">
+				<div class="span-1 rounded-corners white no-pad pad-bottom">
+
+
+					<div class="span-1 c pad">
+						<form name="loginForm" class="login-form">
+							<h2 class="lighter no-margin"><img src="assets/PRP_final_14mar13.jpg" style="width:100%"></h2>
+							<br>
+							<p>Member Login</p>
+							<p class="no-margin">
+								<input type="email" name="email" class="input-full-width normal" data-role="none" ng-model="email" placeholder="Email Address">
+								<input type="password" class="input-full-width normal" name="password" data-role="none" ng-model="password" placeholder="Password">
+							</p>
+							<a href="" class="btn full-width-btn green btn-first lighter" ng-click="loginUser()" data-role="none">Login</a>
+						</form>
+					</div>
+
+					<div class="span-1 c light-grey-line top-line pad">
+						<p class="no-margin"><a href="" class="link-color">View Full Site</a></p>
+					</div>
+
+					
+				</div>
+			</div>
+		</div><!-- end main-->
+	</div> <!-- Category page -->
+
+
+
+
+
+<div data-role="none" id="{{page.categoryid}}" ng-repeat="page in categories" class="category-page hide">
+	<div data-role="header" data-position="fixed">
+		<a href="#sidePanelCat-{{page.categoryid}}" class="header-nav-item ui-btn-left large menu"><i class="icon-list"></i></a>
+		<h1>{{page.name}}</h1>
+	</div>
+	
+	<div role="main" class="ui-content jqm-content jqm-fullwidth">
+
+		<div class="row content-top category-grouping" ng-repeat="subCat in page.subCategories">
+			<div class="span-1 rounded-corners white category-container">
+				<h3 class="no-margin normal light-grey-line bottom-line lighter"><a href="" category-pages data-subCategoryId="{{subCat.categoryid}}" data-parentId="{{page.categoryid}}">{{subCat.name}} <i class="icon-ellipsis align-right"></i></a> </h3>
+
+				<div class="span-1 c preloader" ng-show="showPreloader"><img src="assets/350_small.gif"></div>
+
+				<div class="span-1 light-grey-line bottom-line no-pad category-grouping-programs" ng-repeat="program in subCat.programs | limitTo:programLimit">
+					<div class="span-40 no-pad pad-top pad-bottom">
+						<a href="" ng-click="callVideo(program, page.categoryid)" data-transition="slide"><img ng-src="{{program.thumbnailUrl}}" style="width:100%;"></a>
+					</div>
+					<div class="span-60 l pad category-grouping-meta">
+						<h5 class="med"><a href="" ng-click="callVideo(program, page.categoryid)" class="bold" data-transition="slide">{{program.Title}}</a></h5>
+						<p class="small"><a href="" ng-click="callVideo(program, page.categoryid)" data-transition="slide">{{program.Description}}</a></p>
+						<p class="small">{{program.duration}}</p>
+					</div>
+				</div>
+
+
+				<div class="span-1 no-pad" ng-if="subCat.programs.length > 2">
+					<a href="" category-pages data-subCategoryId="{{subCat.categoryid}}" data-parentId="{{page.categoryid}}" class="btn btn-first full-width-btn load-more med">More Videos</a>
+				</div>
+
+			</div><!-- end sub category -->
+		</div> <!-- end row -->
+
+
+
+		<div ng-if="categories.parentCategoryPrograms.length != 0 && page.subCategories.length == 0" class="row content-top category-grouping">
+			<div class="span-1 rounded-corners white category-container">
+				<h3 class="no-margin normal light-grey-line bottom-line lighter">{{categories[0].name}}</h3>
+
+				<div class="span-1 c preloader" ng-show="showPreloader"><img src="assets/350_small.gif"></div>
+
+				<div class="span-1 light-grey-line bottom-line no-pad category-grouping-programs" ng-repeat="program in categories[0].parentCategoryPrograms">
+					<div class="span-40 no-pad pad-top pad-bottom">
+						<a href="" ng-click="callVideo(program, page.categoryid)" data-transition="slide"><img ng-src="{{program.thumbnailUrl}}" style="width:100%;"></a>
+					</div>
+					<div class="span-60 l pad category-grouping-meta">
+						<h5 class="med"><a href="" ng-click="callVideo(program, page.categoryid)" class="bold" data-transition="slide">{{program.Title}}</a></h5>
+						<p class="small"><a href="" ng-click="callVideo(program, page.categoryid)" data-transition="slide">{{program.Description}}</a></p>
+						<p class="small">{{program.duration}}</p>
+					</div>
+				</div>
+			</div><!-- end sub category -->
+		</div> <!-- end row -->
+
+
+	</div><!-- end main -->
+
+
+	<div data-role="panel" id="sidePanelCat-{{page.categoryid}}" class="sidePanel" data-position-fixed="true" data-display="push">
+		<div class="span-1 pad logo-cntr">
+			<img src="assets/PRP_final_14mar13.png" class="flex-img">
+		</div>
+		<ul class="unstyled align-left full-width-btn">
+			<li ng-repeat="item in categories"><a href="#{{item.categoryid}}" data-transition="slide" panel>{{item.name}}</a></li>
+		</ul>
+	</div>
+
+</div><!-- Category page -->
+
+
+
+
+
+
+
+
+<div data-role="page" id="video" class="hide">
+	<div data-role="header" data-position="fixed">
+		<a href="#{{video.parentPage}}" data-transition="slide" data-direction="reverse" class="header-nav-item ui-btn-left large menu"><i class="icon-arrow-left"></i></a>
+		<h1>{{video.name}}</h1>
+	</div>
+	
+	<div role="main" class="ui-content jqm-content jqm-fullwidth">
+		<div class="row content-top category-grouping">
+				
+			<div class="span-1 light-grey-line bottom-line no-pad rounded-corners white video-container">
+				<div class="span-1 no-pad" id="videoProgram">
+					<img src="assets/350_small.gif">
+				</div>
+				<div class="span-1 l pad">
+					<h1 class="normal">{{video.name}}</h1>
+					<p class="small">{{video.description}}</p>
+					<p class="small">{{video.duration}}</p>
+				</div>
+			</div>
+
+		</div>
+	</div><!-- end main -->
+
+	<div data-role="panel" id="sidePanelVideo" class="sidePanel" data-position-fixed="true" data-display="push">
+		<div class="span-1 pad logo-cntr">
+			<img src="assets/PRP_final_14mar13.png" class="flex-img">
+		</div>
+		<ul class="unstyled align-left full-width-btn">
+			<li ng-repeat="item in categories"><a href="#{{item.categoryid}}" data-transition="slide" panel>{{item.name}}</a></li>
+		</ul>
+	</div>
+
+</div><!-- Category page -->
+
+
+<script src="scripts/include/profitability.min.js"></script>
+
+</body>
+</html>

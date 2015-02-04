@@ -1,0 +1,29 @@
+
+	<div data-role="page" id="login" ng-controller="LoginController">	
+		<div role="main" class="ui-content jqm-content jqm-fullwidth" style="height: {{pageHeight}}px">
+			<div class="row category-grouping">
+				<div class="span-1 rounded-corners white no-pad pad-bottom">
+
+
+					<div class="span-1 c pad">
+						<form name="loginForm" class="login-form">
+							<h2 class="lighter no-margin"><img src="assets/PRP_final_14mar13.jpg" style="width:100%"></h2>
+							<br>
+							<p>Member Login</p>
+							<p class="no-margin">
+								<input type="email" name="email" class="input-full-width normal" data-role="none" ng-model="email" placeholder="Email Address">
+								<input type="password" class="input-full-width normal" name="password" data-role="none" ng-model="password" placeholder="Password">
+							</p>
+							<a href="" class="btn full-width-btn green btn-first lighter" ng-click="loginUser()" data-role="none">Login</a>
+						</form>
+					</div>
+
+					<div class="span-1 c light-grey-line top-line pad">
+						<p class="no-margin"><a href="http://www.profitabilityrevolution.com/" class="link-color">View Full Site</a></p>
+					</div>
+
+					
+				</div>
+			</div>
+		</div><!-- end main-->
+	</div> <!-- Category page -->
