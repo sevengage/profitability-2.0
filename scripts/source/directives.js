@@ -28,3 +28,18 @@ PRP.app.directive("logout", ["$window", "utils", function ($window, utils){
 		}
 	};
 }]);
+
+
+/* Back Button
+-----------------------------------------------------------------*/
+PRP.app.directive("back", ["$window", function ($window){
+	return{
+		scope: {},
+		restrict: "AC",
+		link: function (scope, element) {
+			element.click(function(){
+				$window.history.back();
+			});
+		}
+	};
+}]);

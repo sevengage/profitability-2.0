@@ -29,35 +29,38 @@ PRP.app.config(function ($stateProvider, $urlRouterProvider) {
 		.state("videos", {
 			url: "/video",
 			templateUrl: "templates/video.html",
-			controller: function($scope){
-				var videoCntr, video;
-/*
-				if(buildVideoPromise){
+			controller: function($scope, utils){
+				var videoCntr, video, iOS = utils.isIOS();
+
+				if(iOS){
+					// fix for IOS 8 web app video embed playback issue
 					videoCntr = document.getElementById("videoProgram");
-					videoCntr.innerHTML = "<video id='videoPlayer'></video>";
+					video = document.createElement("video");
 
-					video = document.getElementById("videoPlayer");
 					video.src = $scope.video.asset;
+					video.id = "videoPlayer";
+					video.style.width = "100%";
+					video.autoplay = true;
+					video.controls = true;
 
-					video.addEventListener('loadedmetadata', function() {
-						video.play();
-						//video.pause();
+					document.getElementById("preloader").style.display = "none";
+
+					videoCntr.appendChild(video);
+
+				}else{
+
+					jwplayer("videoProgram").setup({
+						androidhls: true,
+						autostart: true,
+						file: $scope.video.asset,
+						title:  $scope.video.name,
+						width: "100%",
+						flashplayer: "scripts/jwplayer.flash.swf",
+						aspectratio: "16:9"
 					});
-				}
-*/
-				
-				jwplayer("videoProgram").setup({
-					androidhls: true,
-					autostart: true,
-					file: $scope.video.asset,
-					title:  $scope.video.name,
-					width: "100%",
-					flashplayer: "scripts/jwplayer.flash.swf",
-					aspectratio: "16:9"
-				});
 
-				jwplayer().onError(showErrorScreen);
-				
+					jwplayer().onError(showErrorScreen);
+				}
 
 				function showErrorScreen(){
 					window.alert("Oops. Unable to playback video. Please try again or choose another video");

@@ -115,7 +115,7 @@ PRP.app.service("process", ["api", "utils", function (api, utils){
 
 /* Utility Services
 ------------------------------------------------------------------------- */
-PRP.app.service("utils", ["$timeout", function ($timeout){
+PRP.app.service("utils", ["$timeout", "$window", function ($timeout, $window){
 	//checks to see if a object has a property
 	this.objectHasProperty = function(obj, val){
 		for(var prop in obj) {
@@ -126,7 +126,20 @@ PRP.app.service("utils", ["$timeout", function ($timeout){
 		return false;
 	};
 
+	// returns a boolean for if a device is ios
+	this.isIOS = function(){
+		return Boolean(/iPad|iPhone|iPod/i.test(navigator.userAgent));
+	};
 
+	// scroll past the nav bar to hide
+	this.scrollBrowser = function(){
+		return (/mobile/i).test(navigator.userAgent) && !location.hash && $timeout(function () {
+			$window.scrollTo(0, 1);
+		}, 1000);
+	};
+
+
+	// menu close helper
 	this.closeMenu = function(){
 		$("#navTrigger + label").click();
 	};
