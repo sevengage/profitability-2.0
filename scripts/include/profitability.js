@@ -4,7 +4,6 @@
 @codekit-append "../lib/angular-touch.js";
 @codekit-append "../lib/angular-route.js";
 
-@codekit-append "../lib/addtohomescreen.js";
 @codekit-append "../lib/jwplayer.js";
 @codekit-append "../lib/jwplayer.html5.js";
 

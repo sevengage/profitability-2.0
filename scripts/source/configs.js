@@ -30,7 +30,7 @@ PRP.app.config(function ($stateProvider, $urlRouterProvider) {
 			url: "/video",
 			templateUrl: "templates/video.html",
 			controller: function($scope, utils){
-				var videoCntr, video, iOS = utils.isIOS();
+/*				var videoCntr, video, iOS = utils.isIOS();
 
 				if(iOS){
 					// fix for IOS 8 web app video embed playback issue
@@ -48,7 +48,7 @@ PRP.app.config(function ($stateProvider, $urlRouterProvider) {
 					videoCntr.appendChild(video);
 
 				}else{
-
+*/
 					jwplayer("videoProgram").setup({
 						androidhls: true,
 						autostart: true,
@@ -60,7 +60,7 @@ PRP.app.config(function ($stateProvider, $urlRouterProvider) {
 					});
 
 					jwplayer().onError(showErrorScreen);
-				}
+				//}
 
 				function showErrorScreen(){
 					window.alert("Oops. Unable to playback video. Please try again or choose another video");

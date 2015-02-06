@@ -58,7 +58,7 @@ PRP.app.controller("PagesController", ["$rootScope", "$scope", "$document", "$ti
 	calculatePageHeight();
 
 
-
+	utils.scrollBrowser();
 
 
 	/* 
@@ -189,6 +189,7 @@ PRP.app.controller("PagesController", ["$rootScope", "$scope", "$document", "$ti
 				}
 			}
 	};
+
 	
 }]);
 
