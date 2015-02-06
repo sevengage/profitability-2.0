@@ -1,0 +1,42 @@
+<div data-role="none" id="{{page.categoryid}}" ng-repeat="page in categories" class="category-page page content-top hide">
+	<div data-role="header" data-position="fixed" class="ui-header" ng-class="{'active-menu': revealMenu}">
+		<a href="#/categories" class="header-nav-item ui-btn-left large"><i class="icon-arrow-left"></i></a>
+		<h1 class="c">{{page.name}}</h1>
+	</div>
+	
+	<div role="main" class="ui-content content-top" style="height: {{pageHeight}}px">
+
+		<div class="row content-top category-grouping" ng-show="page.subCategories.length != 0">
+			<div class="span-1 rounded-corners white category-container">
+				<h3 class="no-margin normal light-grey-line bottom-line lighter category-link" ng-repeat="subCat in page.subCategories">
+					<a href="#/category-videos?parent={{page.categoryid}}&sub={{subCat.categoryid}}">
+						{{subCat.name}} 
+						<i class="icon-arrow-right align-right"></i>
+					</a>
+				</h3>
+			</div><!-- end sub category -->
+		</div> <!-- end row -->
+
+
+		<div ng-if="categories.parentCategoryPrograms.length != 0 && page.subCategories.length == 0" class="row content-top category-grouping">
+			<div class="span-1 rounded-corners white category-container">
+				<h3 class="no-margin normal light-grey-line bottom-line lighter">{{categories[0].name}}</h3>
+
+				<div class="span-1 c preloader" ng-show="showPreloader"><img src="assets/350_small.gif"></div>
+
+				<div class="span-1 light-grey-line bottom-line no-pad category-grouping-programs" ng-repeat="program in categories[0].parentCategoryPrograms">
+					<div class="span-40 no-pad pad-top pad-bottom">
+						<a href="" ng-click="callVideo(program, page.categoryid)" data-transition="slide"><img ng-src="{{program.thumbnailUrl}}" style="width:100%;"></a>
+					</div>
+					<div class="span-60 l pad category-grouping-meta">
+						<h5 class="med"><a href="" ng-click="callVideo(program, page.categoryid)" class="bold" data-transition="slide">{{program.Title}}</a></h5>
+						<p class="small">{{program.duration}}</p>
+					</div>
+				</div>
+			</div><!-- end sub category -->
+		</div> <!-- end row -->
+
+
+
+	</div><!-- end main -->
+</div><!-- Category page -->

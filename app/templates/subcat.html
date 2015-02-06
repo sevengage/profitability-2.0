@@ -1,0 +1,37 @@
+<!-- sub category page -->
+<div data-role="page" id="{{subCat.categoryid}}" class="hide" ng-repeat="subCat in subCategoryPage">
+	<div data-role="header" data-position="fixed">
+		<a href="#{{subCat.parentid}}" panel data-transition="slide" data-direction="reverse" class="header-nav-item ui-btn-left large menu"><i class="icon-arrow-left"></i></a>
+		<h1>{{subCat.name}}</h1>
+	</div>
+	
+	<div role="main" class="ui-content jqm-content jqm-fullwidth">
+		<div class="row content-top category-grouping">
+			<div class="span-1 c rounded-corners white category-container">
+				
+				
+				<div class="span-1 light-grey-line bottom-line no-pad category-grouping-programs" ng-repeat="program in subCat.programs">
+					<div class="span-40 no-pad pad-top pad-bottom">
+						<a href="" ng-click="callVideo(program, subCategoryPage.categoryid)" data-transition="slide"><img ng-src="{{program.thumbnailUrl}}" style="width:100%;"></a>
+					</div>
+					<div class="span-60 l pad category-grouping-meta">
+						<h5 class="med"><a href="" ng-click="callVideo(program, subCategoryPage.categoryid)" class="bold" data-transition="slide">{{program.Title}}</a></h5>
+						<p class="small">Runtime: {{program.duration}}</p>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div><!-- end main -->
+
+	<div data-role="panel" id="sidePanelSubCat" class="sidePanel" data-position-fixed="true" data-display="push" ng-include="panel.html">
+		<div class="span-1 pad logo-cntr">
+			<img src="assets/PRP_final_14mar13.png" class="flex-img">
+		</div>
+		<ul class="unstyled align-left full-width-btn">
+			<li ng-repeat="item in categories"><a href="#{{item.categoryid}}" data-transition="slide" panel>{{item.name}}</a></li>
+		</ul>
+	</div>
+
+</div><!-- Category page -->

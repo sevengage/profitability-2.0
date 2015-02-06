@@ -1,0 +1,24 @@
+	<div data-role="none" id="video" class="page content-top">
+		<div data-role="header" data-position="fixed" class="ui-header" ng-class="{'active-menu': revealMenu}">
+			<a href="" back class="header-nav-item ui-btn-left large menu"><i class="icon-arrow-left"></i></a>
+			<h1 class="c">{{video.name}}</h1>
+		</div>
+		
+		<div role="main" class="ui-content content-top" style="height: {{pageHeight}}px">
+			<div class="row content-top category-grouping">
+				<div class="span-1 light-grey-line bottom-line no-pad rounded-corners white video-container">
+
+					<div class="span-1 no-pad" id="videoProgram">
+						<img src="assets/350_small.gif" id="preloader" class="preloader">
+					</div><!-- end video container -->
+					
+					<div class="span-1 l pad">
+						<h1 class="normal">{{video.name}}</h1>
+						<p class="small">{{video.description}}</p>
+						<p class="small">Runtime: {{video.duration}}</p>
+					</div>
+				</div>
+
+			</div>
+		</div><!-- end main -->
+	</div><!-- video page -->

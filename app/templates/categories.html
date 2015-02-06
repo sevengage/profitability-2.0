@@ -1,0 +1,21 @@
+
+<div data-role="none" id="categories" class="category-page page content-top">
+	<div data-role="header" data-position="fixed" class="ui-header ui-bar-inherit ui-header-fixed" ng-class="{'active-menu': revealMenu}">
+		<h1 class="c">All Categories</h1>
+	</div>
+	
+	<div role="main" class="ui-content content-top" style="height: {{pageHeight}}px">
+		<div class="row content-top category-grouping">
+			<div class="span-1 rounded-corners white category-container">
+
+				<h3 class="no-margin normal light-grey-line bottom-line lighter category-link" ng-repeat="item in categories">
+					<a href="#/subcategory?page={{item.categoryid}}" data-id="#{{item.categoryid}}">
+						{{item.name}} 
+						<i class="icon-arrow-right align-right"></i>
+					</a>
+				</h3>
+
+			</div><!-- end sub category -->
+		</div> <!-- end row -->
+	</div><!-- end main -->
+</div><!-- Category page -->
