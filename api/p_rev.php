@@ -207,11 +207,16 @@ if(isset($_GET['email']) && isset($_GET['group_id']) && isset($_GET['password'])
 	*/
 	
 	$table = array();
+	
+	$table[214] = array('displayName' => 'Enterprise2 CRCC Free Video Library Access');
+	$table[212] = array('displayName' => 'GECC');
+	$table[202] = array('displayName' => 'paid');
+	$table[198] = array('displayName' => 'Enterprise1 GECC Free Video Library Access');
 	$table[184] = array('displayName' => 'Enterprise Free Video Library Access');
 	$table[124] = array('displayName' => 'Free Video Library Access');
 	$table[120] = array('displayName' => 'Free Access');
 	$table[118] = array('displayName' => 'Paid Access');
-	$table[118] = array('displayName' => 'Gold Membership');
+	$table[116] = array('displayName' => 'Gold Membership');
 	
 	
 
