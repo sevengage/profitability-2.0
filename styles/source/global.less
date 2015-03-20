@@ -3,7 +3,17 @@ body{
   color: #666;
 }
 .preloader{
-	margin:40px 0;
+	margin: 40px 0;
+	background-color: rgba(255, 255, 255, 1);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	z-index: 1;
+	border-radius: 5px;
+	margin-left: -15px
 }
 .ui-header{
 	background-color: #f9f9f9;
@@ -161,7 +171,9 @@ label[for="navTrigger"]{
 .category-grouping-programs:last-of-type, .category-link:last-of-type{
 	border:none;
 }
-
+.category-grouping a.btn{
+	color:#fff;
+}
 [class*='span-']:last-of-type.video-container{
 	padding: 0;
 }

@@ -3,7 +3,7 @@
 		<a href="#/subcategory?page={{subCategoryPage.parentid}}" class="header-nav-item ui-btn-left large menu"><i class="icon-arrow-left"></i></a>
 		<h1 class="c">{{subCategoryPage.name}}</h1>
 	</div>
-	
+
 	<div role="main" class="ui-content content-top" style="height: {{pageHeight}}px">
 		<div class="row content-top category-grouping">
 			<div class="span-1 c rounded-corners white category-container">
@@ -27,6 +27,13 @@
 					</div>
 				</div><!-- no programs found -->
 
+				<load-more-button 
+					total="subCategoryPage.totalCount" 
+					current="subCategoryPage.currentCount"
+					category="subCategoryPage.categoryid"
+					catindex="subCategoryPage.parentIndex"
+					subcatindex="subCategoryPage.subIndex">
+				</load-more-button>
 
 			</div>
 		</div>

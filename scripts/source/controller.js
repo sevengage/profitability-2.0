@@ -6,7 +6,6 @@ PRP.app.controller("LoginController", ["$scope", "$window", "api", function ($sc
 	$scope.password = "";
 
 	$scope.loginUser = function(){
-		
 		api.login($scope.email, $scope.password).then(function(response){
 			if(Boolean(response.GroupName) && response.PasswordMatch){
 				//emit when login is a success
@@ -50,13 +49,20 @@ PRP.app.controller("PagesController", ["$rootScope", "$scope", "$document", "$ti
 		calculatePageHeight();
 	});
 
+
+	// watches for orientation change ecents
+	angular.element($window).bind('orientationchange', function () {
+		calculatePageHeight();
+	});
+
+
+
 	//determiens the page height to set
 	function calculatePageHeight(){
 		$scope.pageHeight = $($window).height();
 	}
 
 	calculatePageHeight();
-
 
 	utils.scrollBrowser();
 
@@ -135,13 +141,27 @@ PRP.app.controller("PagesController", ["$rootScope", "$scope", "$document", "$ti
 
 	// Gets Cat Programs Cleans and addes them to the Parent
 	function getSubCategoryPrograms(args){
+
 		$scope.showPreloader = true;
 
-		api.getPrograms(args.category).then(function(data){
-			programs = process.programs(data.response.getPrograms.programs);
+		api.getPrograms({
+			category: args.category,
+			start: 0,
+			end: 14
+
+		}).then(function(data){
+			var getPrograms = data.response.getPrograms,
+				subCategoreis = $scope.categories[args.index].subCategories[args.subindex];
+			
+			programs = process.programs(getPrograms.programs);
 
 			if(typeof args.subindex !== "undefined"){
-				$scope.categories[args.index].subCategories[args.subindex].programs = programs;
+				subCategoreis.programs = programs;
+				subCategoreis.parentIndex = args.index;
+				subCategoreis.subIndex = args.subindex;
+				subCategoreis.currentCount = getPrograms.currentCount;
+				subCategoreis.totalCount = parseInt(getPrograms.totalCount, 10);
+
 			}else{
 				$scope.categories[args.index].parentCategoryPrograms = programs;
 			}

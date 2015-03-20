@@ -127,16 +127,14 @@ public function checkGroup(){
 		
 	} else {
 		// Prepare the value in an array
-		$groupsArray[] = $iSgroup;	
+		$groupsArray[0] = $iSgroup;	
 	}
 	
 	// Now compare the list of all id's to check for against the values in the system
 	// Both lookup and the return values are in arrays
-	
-	for($i = 0;$i < sizeof($lookupArray);$i++){
-		$lookup =	$lookupArray[$i];
-		if(array_search($lookup, $groupsArray)){
-			$key = array_search($lookup, $groupsArray);
+	for($i = 0;$i < sizeof($groupsArray);$i++){
+		$lookup =	$groupsArray[$i];
+		if(array_search(intval($lookup), $lookupArray) !== NULL){	
 			$this->groupMatch = true;
 			$this->groupName =  $this->groupTable[$lookup]['displayName'];
 			break;
@@ -235,7 +233,7 @@ if ($app->cfgCon("fivewishes")) {
    $rethink->getInfusionId();
    $response = $rethink->generateResponse();
 	echo $response;
-
+	
    
 } else {
     echo "Connection Failed";

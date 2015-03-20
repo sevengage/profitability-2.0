@@ -22,9 +22,9 @@ PRP.app.service("api", ["Backend", "base", function (Backend, base){
 	};
 	
 	// get programs: used to get categories: category_id in the getProjectDetails resonse
-	this.getPrograms = function (category_id){
+	this.getPrograms = function (args){
 		// https://player.piksel.com/ws/get_programs/p/ +project_uuid+ /api/ +key+ /catid/ +category_id+ /start/0/end/14/apiv/4.0/mode/json
-		promise = Backend.fetch(base.api.get_programs + "/catid/" + category_id +"/start/0/end/14/apiv/4.0/mode/json");
+		promise = Backend.fetch(base.api.get_programs + "/catid/" + args.category +"/start/"+ args.start +"/end/"+ args.end +"/apiv/4.0/mode/json");
 		return promise;
 	};
 
