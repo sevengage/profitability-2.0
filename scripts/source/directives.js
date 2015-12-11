@@ -69,20 +69,21 @@ PRP.app.directive("loadMoreButton", ["$rootScope", "api", "process", function ($
 		},
 		restrict: 'E',
 		template: [	'<div class="span-1 no-pad top-space hide">',
-						'<p><a href="" class="btn btn-first full-width-btn blue">Load More</a></p>',
+						'<p><a href="" class="btn btn-first full-width-btn blue">Load More Videos</a></p>',
 					'</div>'].join(""),
 		replace: true,
 		link: function($scope, element){
-			var thisSubCategory = $scope.$parent.$parent.categories[$scope.catindex].subCategories[$scope.subcatindex],
+			var thisSubCategory,
 				loadStart = 0,
 				loadEnd = 0;
 
-			// when instanciated, show button and decrement the first batch
-			if($scope.total > $scope.current){
-				element.removeClass("hide");
-				decrementTotal();
-			}
 
+			// Watch and show button and decrement the first batch
+			$scope.$parent.$parent.$watch("categories", function (newVal, oldVal){
+				thisSubCategory = $scope.$parent.$parent.categories[$scope.catindex].subCategories[$scope.subcatindex];
+				showButton();
+			});
+		
 
 			//when tapped, determine remainder, get more programs and decrement
 			element.click(function(){
@@ -103,9 +104,16 @@ PRP.app.directive("loadMoreButton", ["$rootScope", "api", "process", function ($
 
 				decrementTotal();
 
-				if($scope.total < 0){ element.addClass("hide"); }
-
+				if($scope.total < $scope.current){ element.addClass("hide"); }
 			});
+
+
+			function showButton(){
+				if($scope.total > $scope.current){
+					element.removeClass("hide");
+					
+				}
+			}
 
 
 			// process the response and loads the programs in to the subcategory program array
