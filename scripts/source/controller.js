@@ -1,9 +1,21 @@
 
 /* Login Controller
 -----------------------------------------------------------------*/
-PRP.app.controller("LoginController", ["$scope", "$window", "api", function ($scope, $window, api){
-	$scope.email = "";
-	$scope.password = "";
+PRP.app.controller("LoginController", ["$scope", "$window", "api", "storage", function ($scope, $window, api, storage){
+	var haveStorage = storage.get();
+
+	$scope = {
+		email: "",
+		password: "",
+		shouldRemember: false
+	};
+
+
+	if($window.localStorage && haveStorage){
+		$scope.email = "";
+		$scope.shouldRemember = "";
+	}
+	
 
 	$scope.loginUser = function(){
 		api.login($scope.email, $scope.password).then(function(response){
@@ -14,8 +26,29 @@ PRP.app.controller("LoginController", ["$scope", "$window", "api", function ($sc
 				$window.alert("Sorry about that.  Please try entering a good" + (typeof response.InfusionId !== "number" ? " email address" : "") + (response.PasswordMatch === null || !response.PasswordMatch ? (typeof response.InfusionId !== "number" ? " and password" : " password") : "") );
 			}
 		});
-
 	};
+
+
+	// controller for saving user information
+	$scope.rememberUser = function(){
+		
+		if( $scope.shouldRemember && typeof $scope.email !== "undefined"){
+			storage.set({
+				name: "savedUser",
+				data: {
+					email: $scope.email,
+					shouldRemember: $scope.shouldRemember
+				}
+			});
+		}
+	};
+
+	// if successful login, then save the data
+	$scope.$on("login", function (e, data){
+		if(data){
+			$scope.rememberUser();
+		}
+	});
 	
 }]);
 

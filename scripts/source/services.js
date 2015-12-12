@@ -8,6 +8,30 @@ PRP.app.service("Backend", ['$http', function ($http){
 }]);
 
 
+/* Local Storage Service
+	args = {
+		name: "", // storage item name
+		data: "" // the data to save
+	}
+-----------------------------------------------------------------*/
+PRP.app.service("storage", ["$window", function ($window){
+	this.set = function(args){
+		var data = JSON.stringify(args.data);
+
+		if($window.localstorage){
+			$window.localStorage.setItem(args.name, data);
+		}
+
+		return;
+	};
+
+	this.fetch = function(name){
+		if($window.localstorage){
+			return $window.localStorage.getItem(name);
+		}
+	};
+}]);
+
 
 /* API Services
 -----------------------------------------------------------------*/
