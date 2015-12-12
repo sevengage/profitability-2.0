@@ -2,26 +2,27 @@
 /* Login Controller
 -----------------------------------------------------------------*/
 PRP.app.controller("LoginController", ["$scope", "$window", "api", "storage", function ($scope, $window, api, storage){
-	var haveStorage = storage.get();
+	var haveStorage = storage.get("savedUser");
 
-	$scope = {
-		email: "",
-		password: "",
-		shouldRemember: false
-	};
+	$scope.email = "";
+	$scope.password = "";
+	$scope.shouldRemember = "";
 
 
 	if($window.localStorage && haveStorage){
-		$scope.email = "";
-		$scope.shouldRemember = "";
+		$scope.email = haveStorage.email;
+		$scope.shouldRemember = haveStorage.shouldRemember;
 	}
 	
 
 	$scope.loginUser = function(){
 		api.login($scope.email, $scope.password).then(function(response){
 			if(Boolean(response.GroupName) && response.PasswordMatch){
+				
 				//emit when login is a success
 				$scope.$emit("login", true);
+				$scope.rememberUser();
+
 			}else{
 				$window.alert("Sorry about that.  Please try entering a good" + (typeof response.InfusionId !== "number" ? " email address" : "") + (response.PasswordMatch === null || !response.PasswordMatch ? (typeof response.InfusionId !== "number" ? " and password" : " password") : "") );
 			}
@@ -31,29 +32,22 @@ PRP.app.controller("LoginController", ["$scope", "$window", "api", "storage", fu
 
 	// controller for saving user information
 	$scope.rememberUser = function(){
-		
-		if( $scope.shouldRemember && typeof $scope.email !== "undefined"){
-			storage.set({
-				name: "savedUser",
-				data: {
-					email: $scope.email,
-					shouldRemember: $scope.shouldRemember
-				}
-			});
-		}
+		storage.set({
+			name: "savedUser",
+			data: {
+				email: $scope.shouldRemember ? $scope.email : "",
+				shouldRemember: $scope.shouldRemember
+			}
+		});
 	};
 
-	// if successful login, then save the data
-	$scope.$on("login", function (e, data){
-		if(data){
-			$scope.rememberUser();
-		}
-	});
+
+	
 	
 }]);
 
 
-/* Pages and Cagegories Controller
+/* Pages and Categories Controller
 -----------------------------------------------------------------*/
 PRP.app.controller("PagesController", ["$rootScope", "$scope", "$document", "$timeout", "$location", "$window", "api", "process", "utils", function ($rootScope, $scope, $document, $timeout, $location, $window, api, process, utils){
 	

@@ -18,17 +18,22 @@ PRP.app.service("storage", ["$window", function ($window){
 	this.set = function(args){
 		var data = JSON.stringify(args.data);
 
-		if($window.localstorage){
-			$window.localStorage.setItem(args.name, data);
+		if($window.localStorage){
+			$window.localStorage[args.name] = data;
 		}
 
 		return;
 	};
 
-	this.fetch = function(name){
-		if($window.localstorage){
-			return $window.localStorage.getItem(name);
+	this.get = function(name){
+		var data;
+
+		if($window.localStorage ){
+			data = $window.localStorage[name];
+			data = data ? JSON.parse(data) : "";
 		}
+
+		return data;
 	};
 }]);
 
